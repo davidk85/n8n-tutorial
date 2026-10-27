@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- Beispiel-Webseite für Folge 10. Firma, Produkte und Zahlen sind ausgedacht.
+     Den Chat bindet der markierte Block am Ende der Seite ein (vor dem schließenden body-Tag):
+     DEINE-CHAT-URL durch die Chat URL aus deinem Chat Trigger ersetzen. -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaffeerösterei Morgenrot</title>
+<style>
+  :root { --rot: #8a2f1d; --creme: #f7f1ea; --dunkel: #2a1a14; --grau: #7a6a62; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Georgia, 'Times New Roman', serif; color: var(--dunkel); background: var(--creme); }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 28px 8vw; }
+  .logo { font-size: 26px; font-weight: bold; letter-spacing: .02em; }
+  .logo span { color: var(--rot); }
+  nav a { margin-left: 32px; color: var(--dunkel); text-decoration: none; font-family: system-ui, sans-serif; font-size: 16px; }
+  .hero { margin: 0 8vw; padding: 110px 70px; border-radius: 28px; color: #fff;
+    background: radial-gradient(circle at 80% 20%, #c4633f 0, transparent 45%), linear-gradient(135deg, #8a2f1d, #3b1a10); }
+  .hero small { font-family: system-ui, sans-serif; letter-spacing: .18em; text-transform: uppercase; font-size: 14px; opacity: .8; }
+  .hero h1 { font-size: 64px; line-height: 1.05; margin: 18px 0 20px; max-width: 760px; }
+  .hero p { font-size: 21px; max-width: 620px; line-height: 1.5; margin: 0 0 34px; opacity: .92; }
+  .btn { display: inline-block; background: #fff; color: var(--rot); padding: 15px 28px; border-radius: 999px;
+    font-family: system-ui, sans-serif; font-weight: 600; text-decoration: none; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 56px 8vw; }
+  .card { background: #fff; border-radius: 22px; padding: 34px; box-shadow: 0 8px 30px rgba(42,26,20,.06); }
+  .card h2 { margin: 0 0 10px; font-size: 26px; }
+  .card p { margin: 0; font-family: system-ui, sans-serif; color: var(--grau); line-height: 1.55; font-size: 16px; }
+  footer { margin: 0 8vw; padding: 30px 0 60px; font-family: system-ui, sans-serif; color: var(--grau); font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Kaffeerösterei <span>Morgenrot</span></div>
+  <nav><a href="#">Kaffee</a><a href="#">Abo</a><a href="#">Laden</a><a href="#">Kontakt</a></nav>
+</header>
+<section class="hero">
+  <small>Seit 2014 in Lüneburg</small>
+  <h1>Frisch geröstet, direkt zu dir nach Hause.</h1>
+  <p>Wir rösten jeden Dienstag und Freitag in kleinen Chargen und versenden spätestens zwei Werktage nach der Röstung.</p>
+  <a class="btn" href="#">Kaffee entdecken</a>
+</section>
+<section class="cards">
+  <div class="card"><h2>Kaffee-Abo</h2><p>Alle zwei oder vier Wochen frischer Kaffee, 10 Prozent günstiger und jederzeit pausierbar.</p></div>
+  <div class="card"><h2>Versand</h2><p>Innerhalb Deutschlands ab 39 Euro Bestellwert kostenlos, sonst 4,90 Euro.</p></div>
+  <div class="card"><h2>Röstvorführung</h2><p>Jeden ersten Samstag im Monat um 10 Uhr in unserem Laden. Der Eintritt ist frei.</p></div>
+</section>
+<footer>Beispielseite aus dem ToolVibes-Tutorial. Die Kaffeerösterei Morgenrot gibt es nicht.</footer>
+
+<!-- n8n-Chat: Anfang -->
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat@1.42.4/dist/style.css" rel="stylesheet">
+<style>
+  :root { --chat--color--primary: #8a2f1d; --chat--color--primary-shade-50: #74261a; --chat--color--secondary: #8a2f1d; --chat--header--background: #2a1a14; }
+</style>
+<script type="module">
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat@1.42.4/dist/chat.bundle.es.js';
+  createChat({
+    webhookUrl: 'DEINE-CHAT-URL',
+    loadPreviousSession: false,
+    initialMessages: ['Hallo! Ich bin der Assistent der Kaffeerösterei Morgenrot. Frag mich zu Abo, Versand oder Rückgabe.'],
+    i18n: {
+      en: {
+        title: 'Morgenrot Kundenservice',
+        subtitle: 'Fragen zu Kaffee, Abo und Versand',
+        footer: '',
+        getStarted: 'Neues Gespräch',
+        inputPlaceholder: 'Deine Frage …',
+      },
+    },
+  });
+</script>
+<!-- n8n-Chat: Ende -->
+</body>
+</html>

@@ -17,6 +17,7 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 | 7 | [Ein Chat für deinen KI-Agenten](folge-07-chat-trigger/) | Einsteiger |
 | 8 | [Der Chatbot nimmt Kontaktanfragen auf](folge-08-kontaktanfragen/) | Einsteiger |
 | 9 | [Verlässliche Antworten vom KI-Chatbot](folge-09-verlaessliche-antworten/) | Einsteiger |
+| 10 | [Der KI-Chatbot auf deiner Webseite](folge-10-chat-webseite/) | Einsteiger |
 
 ## n8n starten
 
