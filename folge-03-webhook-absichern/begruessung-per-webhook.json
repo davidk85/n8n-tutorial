@@ -1,0 +1,63 @@
+{
+  "name": "Begrüßung per Webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "begruessung",
+        "authentication": "headerAuth",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "09e02cc3-39df-475c-8fbe-8f136fca2a03",
+      "name": "Webhook",
+      "webhookId": "77b34aef-4abf-4c25-b504-7b6a0c72aa56"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1091b9cf-2390-4ff8-a393-02f879a3f313",
+              "name": "antwort",
+              "value": "=Hallo {{ $json.body.name }}! Willkommen bei n8n.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        160,
+        0
+      ],
+      "id": "97446d87-3772-4886-8b24-a8740da3e1cf",
+      "name": "Edit Fields"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}
