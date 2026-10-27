@@ -1,8 +1,9 @@
 # n8n lokal starten: docker compose up -d  →  http://localhost:5678
+# Qdrant (ab Folge 6) läuft daneben: Dashboard unter http://localhost:6333/dashboard,
+# in n8n erreichbar unter http://qdrant:6333.
 services:
   n8n:
     image: docker.n8n.io/n8nio/n8n:${N8N_VERSION:-2.44.7}
-    container_name: n8n
     restart: unless-stopped
     ports:
       - "5678:5678"
@@ -14,5 +15,14 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
 
+  qdrant:
+    image: qdrant/qdrant:${QDRANT_VERSION:-v1.17.0}
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
 volumes:
   n8n_data:
+  qdrant_data:

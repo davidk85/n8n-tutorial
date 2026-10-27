@@ -7,11 +7,13 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 
 | Folge | Thema | Level |
 |---|---|---|
+| 0 | [n8n mit Docker starten](folge-00-docker-start/) | Einsteiger |
 | 1 | [Dein erster Webhook-Workflow](folge-01-webhook-basics/) | Einsteiger |
 | 2 | [Dein erster KI-Agent in n8n](folge-02-ki-agent/) | Einsteiger |
 | 3 | [Webhook absichern mit Header Auth](folge-03-webhook-absichern/) | Einsteiger |
 | 4 | [Gib deinem KI-Agenten ein Gedächtnis](folge-04-ki-agent-gedaechtnis/) | Einsteiger |
 | 5 | [RAG: KI-Agent mit eigenen Dokumenten](folge-05-rag-dokumente/) | Einsteiger |
+| 6 | [Dokumente dauerhaft speichern mit Qdrant](folge-06-qdrant/) | Fortgeschritten |
 
 ## n8n starten
 
@@ -24,7 +26,9 @@ docker compose up -d
 Danach http://localhost:5678 öffnen und beim ersten Start ein Konto anlegen. Die Videos nutzen
 n8n 2.44.7. Eine andere Version stellst du in `docker-compose.yml` ein.
 
-Stoppen mit `docker compose down`. Deine Workflows bleiben im Docker-Volume `n8n_data` erhalten.
+Das startet n8n und Qdrant (Vektordatenbank ab Folge 6). Nur n8n: `docker compose up -d n8n`.
+
+Stoppen mit `docker compose down`. Deine Workflows und Dokumente bleiben in den Docker-Volumes erhalten.
 
 ## Hinweise
 
