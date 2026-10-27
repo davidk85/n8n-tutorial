@@ -16,6 +16,7 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 | 6 | [Dokumente dauerhaft speichern mit Qdrant](folge-06-qdrant/) | Fortgeschritten |
 | 7 | [Ein Chat für deinen KI-Agenten](folge-07-chat-trigger/) | Einsteiger |
 | 8 | [Der Chatbot nimmt Kontaktanfragen auf](folge-08-kontaktanfragen/) | Einsteiger |
+| 9 | [Verlässliche Antworten vom KI-Chatbot](folge-09-verlaessliche-antworten/) | Einsteiger |
 
 ## n8n starten
 
