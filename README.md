@@ -14,6 +14,7 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 | 4 | [Gib deinem KI-Agenten ein Gedächtnis](folge-04-ki-agent-gedaechtnis/) | Einsteiger |
 | 5 | [RAG: KI-Agent mit eigenen Dokumenten](folge-05-rag-dokumente/) | Einsteiger |
 | 6 | [Dokumente dauerhaft speichern mit Qdrant](folge-06-qdrant/) | Fortgeschritten |
+| 7 | [Ein Chat für deinen KI-Agenten](folge-07-chat-trigger/) | Einsteiger |
 
 ## n8n starten
 
