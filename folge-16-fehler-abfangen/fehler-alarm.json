@@ -1,0 +1,52 @@
+{
+  "name": "Fehler-Alarm",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a616455f-9b24-4e3b-9fa1-4b2f35ca8563",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "fromEmail": "alarm@morgenrot.example",
+        "toEmail": "admin@morgenrot.example",
+        "subject": "=Fehler in {{ $json.workflow.name }}",
+        "emailFormat": "text",
+        "text": "=Fehler im Node {{ $json.execution.lastNodeExecuted }}: {{ $json.execution.error.message }} Zum Lauf: {{ $json.execution.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        0
+      ],
+      "id": "ef04667b-80d4-4757-a030-df32cd31c46e",
+      "name": "Send an Email",
+      "webhookId": "a08f6d8a-2b36-49f8-9305-e06ec27591eb"
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

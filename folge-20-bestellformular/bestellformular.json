@@ -1,0 +1,203 @@
+{
+  "name": "Bestellformular",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Kaffee bestellen",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email"
+            },
+            {
+              "fieldLabel": "Sorte",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Espresso Nummer drei"
+                  },
+                  {
+                    "option": "Kolumbien Supremo"
+                  },
+                  {
+                    "option": "Filterkaffee Hausmischung"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Kilo",
+              "fieldType": "number"
+            }
+          ]
+        },
+        "options": {
+          "path": "bestellen"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e7ef64c0-8c05-4f68-9950-ecfe3566ec81",
+      "name": "On form submission",
+      "webhookId": "a64b6f1e-0406-48ab-8c5e-2067427c01d4"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "d3MM7ZUzcETx7RhN",
+          "mode": "list",
+          "cachedResultName": "Bestellungen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/d3MM7ZUzcETx7RhN"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $json.Name }}",
+            "email": "={{ $json.Email }}",
+            "sorte": "={{ $json.Sorte }}",
+            "kilo": "={{ $json.Kilo }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "sorte",
+              "displayName": "sorte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "kilo",
+              "displayName": "kilo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "a95ebeb8-20c9-400a-a175-1f711fc42ff8",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "fromEmail": "bestellung@morgenrot.example",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Danke für deine Bestellung",
+        "emailFormat": "text",
+        "text": "=Hallo {{ $json.name }}, wir haben deine Bestellung erhalten: {{ $json.kilo }} kg {{ $json.sorte }}. Dein Team von Morgenrot",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "c99807e4-120b-4994-a871-a8200c90a7e6",
+      "name": "Send an Email",
+      "webhookId": "f0621e1b-7641-44b5-bb79-a403369f85fa"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Danke für deine Bestellung!",
+        "completionMessage": "Du bekommst gleich eine Bestätigung per Mail.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        672,
+        0
+      ],
+      "id": "a37270ed-2ce1-4afb-836d-a461e33e6f46",
+      "name": "Form",
+      "webhookId": "609c1588-d04d-4b81-8706-2e37547f9990"
+    }
+  ],
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send an Email": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

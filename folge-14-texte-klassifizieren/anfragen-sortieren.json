@@ -1,0 +1,385 @@
+{
+  "name": "Anfragen sortieren",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        176
+      ],
+      "id": "2e430f99-3b00-40b1-9d1b-0d4a27bcd6d7",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "TjYKOWb5SjkuzLHx",
+          "mode": "list",
+          "cachedResultName": "Kontaktanfragen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/TjYKOWb5SjkuzLHx"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        176
+      ],
+      "id": "1a7c1610-c36e-46b6-b6fe-8de60820beae",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.anliegen }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Reklamation",
+              "description": "Beschwerde über eine Lieferung oder ein Produkt, z. B. beschädigt, falsch oder schlechter Geschmack"
+            },
+            {
+              "category": "Großhandel",
+              "description": "Firmen, Cafés oder Läden, die regelmäßig oder in großen Mengen kaufen wollen, mit Preisanfragen dafür"
+            },
+            {
+              "category": "Frage",
+              "description": "Fragen von Privatkunden zu Kursen, Lieferzeiten oder einzelnen Produkten"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        176
+      ],
+      "id": "63123b0a-02b8-46ab-8789-b1be8db0891b",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "model": "ministral-3:3b",
+        "options": {
+          "temperature": 0,
+          "numCtx": 8192
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        520,
+        440
+      ],
+      "id": "b68be7fb-0fe9-4e9b-ac76-c65cbe18b009",
+      "name": "Ollama Chat Model"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "TjYKOWb5SjkuzLHx",
+          "mode": "list",
+          "cachedResultName": "Kontaktanfragen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/TjYKOWb5SjkuzLHx"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "thema": "Reklamation"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "anliegen",
+              "displayName": "anliegen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "thema",
+              "displayName": "thema",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        -16
+      ],
+      "id": "05a40c94-147b-4294-a595-fe9bf93a5290",
+      "name": "Thema Reklamation"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "TjYKOWb5SjkuzLHx",
+          "mode": "list",
+          "cachedResultName": "Kontaktanfragen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/TjYKOWb5SjkuzLHx"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "thema": "Großhandel"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "anliegen",
+              "displayName": "anliegen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "thema",
+              "displayName": "thema",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        176
+      ],
+      "id": "38a6a7a7-7e65-47d8-a5b4-14a3c74f9a5d",
+      "name": "Thema Großhandel"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "TjYKOWb5SjkuzLHx",
+          "mode": "list",
+          "cachedResultName": "Kontaktanfragen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/TjYKOWb5SjkuzLHx"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "thema": "Frage"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "anliegen",
+              "displayName": "anliegen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "thema",
+              "displayName": "thema",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        368
+      ],
+      "id": "3ebd1e1d-562a-4094-ba3b-e089e7f58b8f",
+      "name": "Thema Frage"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Thema Reklamation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Thema Großhandel",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Thema Frage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

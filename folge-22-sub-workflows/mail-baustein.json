@@ -1,0 +1,66 @@
+{
+  "name": "Mail-Baustein",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "name"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "nachricht"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9e085bd5-5844-420e-a23d-2a45c4a24aff",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "fromEmail": "hallo@morgenrot.example",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Neues von Morgenrot",
+        "emailFormat": "text",
+        "text": "=Hallo {{ $json.name }}, {{ $json.nachricht }} Dein Team von Morgenrot",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        128,
+        0
+      ],
+      "id": "0628c081-17f6-4ba2-8698-f8c719958592",
+      "name": "Send an Email",
+      "webhookId": "258b5b8b-8121-4ddd-b12c-ca3bc75adc4e"
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

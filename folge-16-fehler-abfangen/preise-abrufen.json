@@ -1,0 +1,57 @@
+{
+  "name": "Preise abrufen",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "preise",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5f0f5a5c-3e29-4a70-8941-00772ebe4926",
+      "name": "Webhook",
+      "webhookId": "868eeedc-9c3d-455f-9d64-3819a121745e"
+    },
+    {
+      "parameters": {
+        "url": "http://lieferant.example/preise",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        144,
+        0
+      ],
+      "id": "02f13b55-770c-4154-a2de-baef3f5d1c69",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "waitBetweenTries": 2000
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "FQ1xBnB6j2rP1S78",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  }
+}

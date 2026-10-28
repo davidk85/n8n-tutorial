@@ -1,0 +1,216 @@
+{
+  "name": "Antwort mit Freigabe",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -16
+      ],
+      "id": "4702a592-b6cd-43e1-b493-2b943f74050b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "LZox579oV75iHU6y",
+          "mode": "list",
+          "cachedResultName": "Kontaktanfragen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/LZox579oV75iHU6y"
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        -16
+      ],
+      "id": "fd836536-a9d6-48dc-a3a2-02b9e7924d4f",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Du arbeitest im Kundenservice der Kaffeerösterei Morgenrot. Schreibe eine kurze, freundliche Antwort auf diese Reklamation und biete Ersatz an. Unterschreibe mit: Dein Team von Morgenrot. Nur der Text der Mail, ohne Betreff und ohne Formatierung. Reklamation von {{ $json.name }}: {{ $json.anliegen }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        448,
+        -16
+      ],
+      "id": "332f4483-c7db-4231-be65-c4d9898e0901",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "ministral-3:3b",
+        "options": {
+          "numCtx": 8192
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        520,
+        216
+      ],
+      "id": "c7913d05-86fb-49c4-ae8b-af5f2f90dafe",
+      "name": "Ollama Chat Model"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "fromEmail": "n8n@morgenrot.example",
+        "toEmail": "team@morgenrot.example",
+        "subject": "Antwort zur Freigabe",
+        "message": "={{ $json.text }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        800,
+        -16
+      ],
+      "id": "3a806ee7-53a4-4e53-a7c9-503be813e459",
+      "name": "Send message and wait for response",
+      "webhookId": "87e61a6e-7c5e-405b-b224-1a0a3be5fb89"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "33ada0ad-5549-46cf-8b71-f2da8cfac7e5",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1024,
+        -16
+      ],
+      "id": "42c86b3b-8984-4a18-b466-6c77894ce3e8",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fromEmail": "service@morgenrot.example",
+        "toEmail": "={{ $('Get row(s)').item.json.email }}",
+        "subject": "Deine Reklamation",
+        "emailFormat": "text",
+        "text": "={{ $('Basic LLM Chain').item.json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1248,
+        -16
+      ],
+      "id": "858ce9d4-dd68-42c6-a92d-920b69b135b7",
+      "name": "Send an Email",
+      "webhookId": "4fe257c8-e6b2-48a9-9710-f4652b04543a"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Send message and wait for response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message and wait for response": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

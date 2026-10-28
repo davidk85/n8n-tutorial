@@ -1,0 +1,59 @@
+{
+  "name": "Beispiel-Feed Kaffeewelt",
+  "nodes": [
+    {
+      "id": "f1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "kaffeewelt-feed",
+      "parameters": {
+        "path": "kaffeewelt-feed",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "f2",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n  <channel>\n    <title>Kaffeewelt Magazin</title>\n    <link>https://kaffeewelt.example</link>\n    <description>Erfundener Beispiel-Feed für ToolVibes</description>\n    <item>\n      <title>Brasilien erwartet eine kleinere Ernte</title>\n      <link>https://kaffeewelt.example/ernte-brasilien</link>\n      <description>Die Kaffeebauern in Brasilien rechnen nach einem trockenen Sommer mit weniger Ertrag. Händler gehen davon aus, dass die Preise für Rohkaffee bis zum Frühjahr steigen.</description>\n      <pubDate>{{ $now.minus({ days: 1 }).toRFC2822() }}</pubDate>\n    </item>\n    <item>\n      <title>Wie der Mahlgrad den Geschmack verändert</title>\n      <link>https://kaffeewelt.example/mahlgrad</link>\n      <description>Eine kleine Versuchsreihe zeigt: Schon ein paar Stufen feiner gemahlen wird ein Espresso deutlich bitterer. Für Filterkaffee empfehlen die Tester eine mittlere Körnung.</description>\n      <pubDate>{{ $now.minus({ days: 2 }).toRFC2822() }}</pubDate>\n    </item>\n    <item>\n      <title>Röstereien setzen auf Mehrweg</title>\n      <link>https://kaffeewelt.example/mehrweg</link>\n      <description>Immer mehr kleine Röstereien bieten Pfanddosen statt Tüten an. Kundinnen und Kunden bringen die Dosen zurück und bekommen beim nächsten Einkauf einen Rabatt.</description>\n      <pubDate>{{ $now.minus({ days: 4 }).toRFC2822() }}</pubDate>\n    </item>\n    <item>\n      <title>Barista-Meisterschaft im Norden</title>\n      <link>https://kaffeewelt.example/barista-meisterschaft</link>\n      <description>Beim Wettbewerb in Hamburg traten zwanzig Baristas an. Gewonnen hat ein Café aus Kiel mit einem Espresso aus Äthiopien.</description>\n      <pubDate>{{ $now.minus({ days: 6 }).toRFC2822() }}</pubDate>\n    </item>\n    <item>\n      <title>Kaffeetrends des Sommers</title>\n      <link>https://kaffeewelt.example/sommertrends</link>\n      <description>Kalt gebrühter Kaffee war in diesem Sommer der Renner. Auch Espresso Tonic wurde in vielen Cafés bestellt.</description>\n      <pubDate>{{ $now.minus({ days: 40 }).toRFC2822() }}</pubDate>\n    </item>\n  </channel>\n</rss>",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/rss+xml; charset=utf-8"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

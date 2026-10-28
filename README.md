@@ -21,6 +21,15 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 | 11 | [Jeden Morgen ein Tagesbericht per Mail](folge-11-tagesbericht/) | Einsteiger |
 | 12 | [KI-Workflows und die DSGVO](folge-12-dsgvo/) | Einsteiger |
 | 13 | [IF und Switch: Anfragen verteilen](folge-13-if-switch/) | Einsteiger |
+| 14 | [Texte mit KI sortieren](folge-14-texte-klassifizieren/) | Einsteiger |
+| 15 | [Daten aus Text ziehen mit KI](folge-15-daten-extrahieren/) | Einsteiger |
+| 16 | [Fehler abfangen in n8n](folge-16-fehler-abfangen/) | Einsteiger |
+| 17 | [Schleifen in n8n verstehen](folge-17-schleifen/) | Einsteiger |
+| 18 | [KI schreibt, Mensch gibt frei](folge-18-freigabe/) | Einsteiger |
+| 19 | [Rechnungen automatisch auslesen](folge-19-rechnungen-auslesen/) | Einsteiger |
+| 20 | [Dein eigenes Bestellformular](folge-20-bestellformular/) | Einsteiger |
+| 21 | [KI-Newsletter aus RSS-Feeds](folge-21-ki-newsletter/) | Einsteiger |
+| 22 | [Sub-Workflows als Bausteine](folge-22-sub-workflows/) | Einsteiger |
 
 ## n8n starten
 

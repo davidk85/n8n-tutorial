@@ -1,0 +1,213 @@
+{
+  "name": "Bestellungen auslesen",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "17f440c2-52b2-470f-98a9-e6745c91e9ab",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "k7bevBE6pg274bnA",
+          "mode": "list",
+          "cachedResultName": "Bestellmails",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/k7bevBE6pg274bnA"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "2e9f78a9-4d03-4a89-8982-14a533575869",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.nachricht }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "kunde",
+              "description": "Vor- und Nachname der Person, die bestellt"
+            },
+            {
+              "name": "produkt",
+              "description": "Name der Kaffeesorte"
+            },
+            {
+              "name": "menge_kg",
+              "type": "number",
+              "description": "Bestellte Menge in Kilogramm als Zahl"
+            },
+            {
+              "name": "lieferdatum",
+              "description": "Gewünschtes Lieferdatum im Format JJJJ-MM-TT"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "0fb8baed-e8cc-490d-a146-c2ef86d87c82",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "model": "ministral-3:3b",
+        "options": {
+          "temperature": 0,
+          "numCtx": 8192
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        520,
+        232
+      ],
+      "id": "528e4bb0-a221-44d3-a010-73452e7d9479",
+      "name": "Ollama Chat Model"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "rAEUfO8WdET1GBwF",
+          "mode": "list",
+          "cachedResultName": "Bestellungen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/rAEUfO8WdET1GBwF"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "kunde": "={{ $json.output.kunde }}",
+            "produkt": "={{ $json.output.produkt }}",
+            "menge_kg": "={{ $json.output.menge_kg }}",
+            "lieferdatum": "={{ $json.output.lieferdatum }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "kunde",
+              "displayName": "kunde",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "produkt",
+              "displayName": "produkt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "menge_kg",
+              "displayName": "menge_kg",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "lieferdatum",
+              "displayName": "lieferdatum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        0
+      ],
+      "id": "3ab697b5-1035-438e-b07f-21bd0f56ac04",
+      "name": "Insert row"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

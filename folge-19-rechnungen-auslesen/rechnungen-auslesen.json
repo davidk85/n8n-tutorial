@@ -1,0 +1,236 @@
+{
+  "name": "Rechnungen auslesen",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Rechnung hochladen",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Rechnung",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {
+          "path": "rechnung"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "10b74d73-7919-4c3b-9635-79b917505145",
+      "name": "On form submission",
+      "webhookId": "bff13417-937e-4a12-99a0-983957b1b7b8"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "Rechnung",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "46153fc5-3ae0-4162-b137-d359c04e7125",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.text }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "lieferant",
+              "description": "Firma, die die Rechnung ausstellt"
+            },
+            {
+              "name": "rechnungsnummer",
+              "description": "Rechnungsnummer"
+            },
+            {
+              "name": "rechnungsdatum",
+              "description": "Rechnungsdatum im Format JJJJ-MM-TT"
+            },
+            {
+              "name": "faellig_am",
+              "description": "Datum, bis wann bezahlt werden muss, im Format JJJJ-MM-TT"
+            },
+            {
+              "name": "betrag_brutto",
+              "type": "number",
+              "description": "Rechnungsbetrag inklusive Umsatzsteuer in Euro, als Zahl"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "845fdc8c-66dc-4ab1-bf14-e6a3fb51e3a7",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "model": "ministral-3:3b",
+        "options": {
+          "temperature": 0,
+          "numCtx": 8192
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        520,
+        232
+      ],
+      "id": "5080f99c-4c22-434a-bc3f-c1a86f27537f",
+      "name": "Ollama Chat Model"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "anvGtEUsd4ZuACY6",
+          "mode": "list",
+          "cachedResultName": "Rechnungen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/anvGtEUsd4ZuACY6"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "lieferant": "={{ $json.output.lieferant }}",
+            "rechnungsnummer": "={{ $json.output.rechnungsnummer }}",
+            "rechnungsdatum": "={{ $json.output.rechnungsdatum }}",
+            "betrag_brutto": "={{ $json.output.betrag_brutto }}",
+            "faellig_am": "={{ $json.output.faellig_am }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "lieferant",
+              "displayName": "lieferant",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "rechnungsnummer",
+              "displayName": "rechnungsnummer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "rechnungsdatum",
+              "displayName": "rechnungsdatum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "betrag_brutto",
+              "displayName": "betrag_brutto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "faellig_am",
+              "displayName": "faellig_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        0
+      ],
+      "id": "065b64f0-8ea3-495b-88a0-1cc6c8f4d704",
+      "name": "Insert row"
+    }
+  ],
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}
