@@ -20,6 +20,10 @@ Mit dem Schedule Trigger startet ein Workflow nach Zeitplan
 - Eine Data Table „Kontaktanfragen“ mit den Spalten name, email und anliegen (Typ string), nach dem Import im Node „Get row(s)“ auswählen
 - Ein SMTP-Zugang: zum Testen Mailpit aus der docker-compose.yml (Host mailpit, Port 1025, SSL aus, Postfach unter http://localhost:8025), sonst die SMTP-Daten deines Mail-Anbieters
 
+## Datenschutz
+
+Dieser Workflow schickt Namen, E-Mail-Adressen und Anliegen an OpenAI in die USA. Wie du ihn so umbaust, dass die KI nur noch Nummern statt Namen sieht und lokal läuft, zeigt [Folge 12](../folge-12-dsgvo/). Keine Rechtsberatung.
+
 ## Dateien
 
 - [`tagesbericht.json`](tagesbericht.json) – Workflow „Tagesbericht“

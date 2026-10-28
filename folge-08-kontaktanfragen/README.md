@@ -19,6 +19,10 @@ Mit einer Data Table als Werkzeug speichert der Agent Anfragen selbst
 - Ein API-Schlüssel von OpenAI (in n8n unter Credentials als „OpenAI“ anlegen)
 - Eine Data Table „Kontaktanfragen“ mit den Spalten name, email und anliegen (Typ string), nach dem Import im Node „Kontaktanfrage speichern“ auswählen
 
+## Datenschutz
+
+Die Anfragen enthalten Namen und E-Mail-Adressen, also personenbezogene Daten. Der Chatverlauf geht dabei an OpenAI in die USA. Was die DSGVO dafür verlangt und wie du weniger Daten an die KI gibst, zeigt [Folge 12](../folge-12-dsgvo/). Keine Rechtsberatung.
+
 ## Dateien
 
 - [`morgenrot-chat.json`](morgenrot-chat.json) – Workflow „Morgenrot Chat“

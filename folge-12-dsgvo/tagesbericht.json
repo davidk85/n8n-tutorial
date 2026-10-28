@@ -1,0 +1,245 @@
+{
+  "name": "Tagesbericht",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "02f4c617-2f05-4f88-a4ba-270f1074253c",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "tWQHWcTgRkmnHBYc",
+          "mode": "list",
+          "cachedResultName": "Kontaktanfragen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/tWQHWcTgRkmnHBYc"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "createdAt",
+              "condition": "gt",
+              "keyValue": "={{ $now.minus({ days: 1 }) }}"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        0
+      ],
+      "id": "f8b93c5e-ece6-4605-af28-cbbcb93756ec",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "bdef6ee6-916a-4442-869e-06221c0856b6",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Schreibe den Tagesbericht für das Team der Kaffeerösterei Morgenrot. Fasse jede Anfrage in einem Satz zusammen und beginne mit ihrer Nummer, zum Beispiel: Anfrage 3: … Nenne kein Datum. Nur Text, ohne Formatierung. Die Anfragen: {{ $json.guardrailsInput }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1168,
+        0
+      ],
+      "id": "31f637d6-32cf-45ba-a059-4614f8636202",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "fromEmail": "bericht@morgenrot.example",
+        "toEmail": "team@morgenrot.example",
+        "subject": "Tagesbericht: neue Kontaktanfragen",
+        "emailFormat": "text",
+        "text": "={{ $json.text }}\n\nKontakte:\n{{ $('Get row(s)').all().map(function (r) { return 'Anfrage ' + r.json.id + ': ' + r.json.name + ', ' + r.json.email }).join('\\n') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1440,
+        0
+      ],
+      "id": "748f0031-62df-41ff-b773-5271ecd25b12",
+      "name": "Send an Email",
+      "webhookId": "368019fb-cbcb-40f8-9560-a82faafb3023"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23ba886e-d3f0-48a7-8bad-19bb10374ed7",
+              "name": "anfrage",
+              "value": "=Anfrage {{ $json.id }}: {{ $json.anliegen }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        368,
+        0
+      ],
+      "id": "925022ed-a2c0-47ba-b7d2-8fa08ef31cb2",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "sanitize",
+        "text": "={{ JSON.stringify($json.data) }}",
+        "guardrails": {
+          "pii": {
+            "value": {
+              "type": "all"
+            }
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.guardrails",
+      "typeVersion": 2,
+      "position": [
+        848,
+        0
+      ],
+      "id": "281e7e01-bee3-4f87-8dad-19c562b37e3d",
+      "name": "Guardrails"
+    },
+    {
+      "parameters": {
+        "model": "ministral-3:3b",
+        "options": {
+          "numCtx": 8192
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1168,
+        128
+      ],
+      "id": "fa048771-5c6f-4df0-b8df-362bcc9bdab3",
+      "name": "Ollama Chat Model"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Guardrails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardrails": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

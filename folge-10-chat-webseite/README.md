@@ -19,6 +19,10 @@ Mit Embedded Chat kommt der Chat als Sprechblase auf jede Webseite
 - Ein API-Schlüssel von OpenAI (in n8n unter Credentials als „OpenAI“ anlegen)
 - Die Data Table „Kontaktanfragen“ aus Folge 8, nach dem Import im Node „Kontaktanfrage speichern“ auswählen
 
+## Datenschutz
+
+Was Besucher in den Chat schreiben, geht an OpenAI in die USA. Nenne den Chatbot und den KI-Anbieter in deiner Datenschutzerklärung. Seit dem 2. August 2026 verlangt der EU AI Act außerdem, dass der Chatbot sich als KI zu erkennen gibt, zum Beispiel in der Begrüßung. Mehr dazu in [Folge 12](../folge-12-dsgvo/). Keine Rechtsberatung.
+
 ## Dateien
 
 - [`morgenrot-chat.json`](morgenrot-chat.json) – Workflow „Morgenrot Chat“

@@ -19,6 +19,7 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 | 9 | [Verlässliche Antworten vom KI-Chatbot](folge-09-verlaessliche-antworten/) | Einsteiger |
 | 10 | [Der KI-Chatbot auf deiner Webseite](folge-10-chat-webseite/) | Einsteiger |
 | 11 | [Jeden Morgen ein Tagesbericht per Mail](folge-11-tagesbericht/) | Einsteiger |
+| 12 | [KI-Workflows und die DSGVO](folge-12-dsgvo/) | Einsteiger |
 
 ## n8n starten
 
