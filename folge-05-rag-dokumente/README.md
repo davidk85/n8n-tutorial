@@ -2,7 +2,7 @@
 
 Dokumente hochladen, im Vector Store speichern und gezielt abfragen
 
-▶ Video: folgt
+▶ Video: https://youtu.be/610VvGIzoKs
 
 ## Was du lernst
 

@@ -23,6 +23,14 @@ services:
     volumes:
       - qdrant_data:/qdrant/storage
 
+  # Test-Postfach (ab Folge 11): fängt jede E-Mail ab, statt sie zu verschicken.
+  # In n8n als SMTP-Server mailpit, Port 1025, SSL aus. Postfach: http://localhost:8025
+  mailpit:
+    image: axllent/mailpit:${MAILPIT_VERSION:-v1.27}
+    restart: unless-stopped
+    ports:
+      - "8025:8025"
+
 volumes:
   n8n_data:
   qdrant_data:

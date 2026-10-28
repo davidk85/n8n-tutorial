@@ -2,7 +2,7 @@
 
 Nur wer den richtigen Token kennt, darf deinen Workflow starten
 
-▶ Video: folgt
+▶ Video: https://youtu.be/ugBHN7ZFE1Q
 
 ## Was du lernst
 

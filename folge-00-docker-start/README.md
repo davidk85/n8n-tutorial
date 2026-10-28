@@ -2,7 +2,7 @@
 
 Docker Desktop auf Windows oder Mac einrichten und n8n lokal starten
 
-▶ Video: folgt
+▶ Video: https://youtu.be/VsaosBvpzuc
 
 ## Was du lernst
 

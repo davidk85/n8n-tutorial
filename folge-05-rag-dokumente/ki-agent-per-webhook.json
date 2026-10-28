@@ -76,7 +76,7 @@
         224,
         240
       ],
-      "id": "01844d79-aa82-4d64-999b-4a4099abfd5f",
+      "id": "f2709450-6995-4431-9962-845ccbe17aa9",
       "name": "Simple Memory"
     },
     {
@@ -92,10 +92,10 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
       "typeVersion": 1.3,
       "position": [
-        496,
-        240
+        512,
+        224
       ],
-      "id": "f6bbfe81-b087-4e22-9317-e6ddb09d0704",
+      "id": "9c6f65ec-75da-4745-9d98-6f826fca9163",
       "name": "Simple Vector Store"
     },
     {
@@ -106,9 +106,9 @@
       "typeVersion": 1.2,
       "position": [
         512,
-        368
+        352
       ],
-      "id": "b1837c79-3adb-4859-802f-d9bc80bfbe71",
+      "id": "cfe9ded4-06bf-48db-a82c-4073e97a7c21",
       "name": "Embeddings OpenAI"
     }
   ],

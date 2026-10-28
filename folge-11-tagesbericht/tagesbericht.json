@@ -1,0 +1,182 @@
+{
+  "name": "Tagesbericht",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "02f4c617-2f05-4f88-a4ba-270f1074253c",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "LWLEOmn1y9X3u0RV",
+          "mode": "list",
+          "cachedResultName": "Kontaktanfragen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/LWLEOmn1y9X3u0RV"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "createdAt",
+              "condition": "gt",
+              "keyValue": "={{ $now.minus({ days: 1 }) }}"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        0
+      ],
+      "id": "f8b93c5e-ece6-4605-af28-cbbcb93756ec",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        304,
+        0
+      ],
+      "id": "bdef6ee6-916a-4442-869e-06221c0856b6",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Schreibe den Tagesbericht für das Team der Kaffeerösterei Morgenrot. Fasse jede neue Kontaktanfrage in einem Satz zusammen, mit Name und E-Mail-Adresse. Nenne kein Datum. Nur Text, ohne Formatierung. Die Anfragen: {{ JSON.stringify($json.data) }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        464,
+        0
+      ],
+      "id": "31f637d6-32cf-45ba-a059-4614f8636202",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        464,
+        144
+      ],
+      "id": "47048b95-957d-4dbb-8312-d36ca5638bc9",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {
+        "fromEmail": "bericht@morgenrot.example",
+        "toEmail": "team@morgenrot.example",
+        "subject": "Tagesbericht: neue Kontaktanfragen",
+        "emailFormat": "text",
+        "text": "={{ $json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        736,
+        0
+      ],
+      "id": "748f0031-62df-41ff-b773-5271ecd25b12",
+      "name": "Send an Email",
+      "webhookId": "368019fb-cbcb-40f8-9560-a82faafb3023"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

@@ -18,6 +18,7 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 | 8 | [Der Chatbot nimmt Kontaktanfragen auf](folge-08-kontaktanfragen/) | Einsteiger |
 | 9 | [Verlässliche Antworten vom KI-Chatbot](folge-09-verlaessliche-antworten/) | Einsteiger |
 | 10 | [Der KI-Chatbot auf deiner Webseite](folge-10-chat-webseite/) | Einsteiger |
+| 11 | [Jeden Morgen ein Tagesbericht per Mail](folge-11-tagesbericht/) | Einsteiger |
 
 ## n8n starten
 
@@ -30,7 +31,7 @@ docker compose up -d
 Danach http://localhost:5678 öffnen und beim ersten Start ein Konto anlegen. Die Videos nutzen
 n8n 2.44.7. Eine andere Version stellst du in `docker-compose.yml` ein.
 
-Das startet n8n und Qdrant (Vektordatenbank ab Folge 6). Nur n8n: `docker compose up -d n8n`.
+Das startet n8n, Qdrant (Vektordatenbank ab Folge 6) und Mailpit (Test-Postfach ab Folge 11, http://localhost:8025). Nur n8n: `docker compose up -d n8n`.
 
 Stoppen mit `docker compose down`. Deine Workflows und Dokumente bleiben in den Docker-Volumes erhalten.
 

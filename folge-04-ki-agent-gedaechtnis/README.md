@@ -2,7 +2,7 @@
 
 Simple Memory und Session-ID: Der Agent merkt sich jedes Gespräch
 
-▶ Video: folgt
+▶ Video: https://youtu.be/yFSruTeIPzI
 
 ## Was du lernst
 

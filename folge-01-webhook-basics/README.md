@@ -2,7 +2,7 @@
 
 Daten empfangen, verarbeiten und direkt antworten
 
-▶ Video: folgt
+▶ Video: https://youtu.be/qDK0XVQvpXY
 
 ## Was du lernst
 

@@ -2,7 +2,7 @@
 
 Mit Embedded Chat kommt der Chat als Sprechblase auf jede Webseite
 
-▶ Video: folgt
+▶ Video: https://youtu.be/WzWDTaUeHmA
 
 ## Was du lernst
 

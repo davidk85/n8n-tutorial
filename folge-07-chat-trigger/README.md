@@ -2,7 +2,7 @@
 
 Mit dem Chat Trigger wird dein Agent zum Chatbot mit eigener Seite
 
-▶ Video: folgt
+▶ Video: https://youtu.be/AMK_k2JjD1M
 
 ## Was du lernst
 

@@ -76,7 +76,7 @@
         224,
         240
       ],
-      "id": "01844d79-aa82-4d64-999b-4a4099abfd5f",
+      "id": "f2709450-6995-4431-9962-845ccbe17aa9",
       "name": "Simple Memory"
     },
     {
@@ -87,9 +87,9 @@
       "typeVersion": 1.2,
       "position": [
         512,
-        368
+        352
       ],
-      "id": "b1837c79-3adb-4859-802f-d9bc80bfbe71",
+      "id": "cfe9ded4-06bf-48db-a82c-4073e97a7c21",
       "name": "Embeddings OpenAI"
     },
     {
@@ -110,7 +110,7 @@
         464,
         224
       ],
-      "id": "e1fb18c6-c0f6-4b32-9ddc-7b1d51711181",
+      "id": "e8eb5001-7088-4f3b-8d10-a3377f4bea35",
       "name": "Qdrant Vector Store"
     }
   ],

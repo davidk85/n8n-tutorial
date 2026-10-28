@@ -2,7 +2,7 @@
 
 Ein Vector Store, der einen Neustart übersteht
 
-▶ Video: folgt
+▶ Video: https://youtu.be/Fgkvo_7Jj5w
 
 ## Was du lernst
 

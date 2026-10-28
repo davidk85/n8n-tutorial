@@ -2,7 +2,7 @@
 
 Mit einer Data Table als Werkzeug speichert der Agent Anfragen selbst
 
-▶ Video: folgt
+▶ Video: https://youtu.be/_38KBTYmRqo
 
 ## Was du lernst
 

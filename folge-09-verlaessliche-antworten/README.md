@@ -2,7 +2,7 @@
 
 Klarer Systemprompt statt erfundener Antworten, geprüft mit Testfragen
 
-▶ Video: folgt
+▶ Video: https://youtu.be/HIIIbqsjcec
 
 ## Was du lernst
 

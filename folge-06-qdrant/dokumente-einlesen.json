@@ -22,9 +22,9 @@
         0,
         0
       ],
-      "id": "d4f21737-6e87-486d-ba0b-619ccd02c94e",
+      "id": "aae1ad2d-5a0a-40e3-9572-310360758f47",
       "name": "On form submission",
-      "webhookId": "2ea0bc96-e1e5-4c16-b0c2-55576d2cc931"
+      "webhookId": "4b502171-bfef-4319-8c12-08ad5b67da9f"
     },
     {
       "parameters": {
@@ -36,7 +36,7 @@
         240,
         240
       ],
-      "id": "29cb7714-728b-4284-8322-8a1fb7bf5a2e",
+      "id": "30a1d8ae-4668-49aa-bb53-7dcee216280d",
       "name": "Embeddings OpenAI"
     },
     {
@@ -47,10 +47,10 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1.1,
       "position": [
-        496,
-        240
+        464,
+        224
       ],
-      "id": "ef88fe60-4c25-4fbc-914b-35c022eac740",
+      "id": "707495ef-b2f8-4b2a-bcbd-55166c6f8e97",
       "name": "Default Data Loader"
     },
     {
@@ -69,7 +69,7 @@
         144,
         0
       ],
-      "id": "24b741a1-b8c7-4749-af4b-31d53679147b",
+      "id": "7aaf19bb-f981-4d21-a3a9-6c055ae54165",
       "name": "Qdrant Vector Store"
     }
   ],

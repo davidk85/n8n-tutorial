@@ -2,7 +2,7 @@
 
 Fragen per Webhook annehmen und mit OpenAI beantworten
 
-▶ Video: folgt
+▶ Video: https://youtu.be/-8IJMSfUPRg
 
 ## Was du lernst
 
