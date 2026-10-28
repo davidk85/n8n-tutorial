@@ -25,10 +25,10 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "tWQHWcTgRkmnHBYc",
+          "value": "jw5C8CQSkAVBGbQU",
           "mode": "list",
           "cachedResultName": "Kontaktanfragen",
-          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/tWQHWcTgRkmnHBYc"
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/jw5C8CQSkAVBGbQU"
         },
         "filters": {
           "conditions": [
@@ -103,7 +103,7 @@
         "assignments": {
           "assignments": [
             {
-              "id": "23ba886e-d3f0-48a7-8bad-19bb10374ed7",
+              "id": "d1012764-7b84-4de5-b7a8-84786bb4cf79",
               "name": "anfrage",
               "value": "=Anfrage {{ $json.id }}: {{ $json.anliegen }}",
               "type": "string"
@@ -118,7 +118,7 @@
         368,
         0
       ],
-      "id": "925022ed-a2c0-47ba-b7d2-8fa08ef31cb2",
+      "id": "e9666e99-7702-4c6c-8ecb-7868e22d3f00",
       "name": "Edit Fields"
     },
     {
@@ -139,7 +139,7 @@
         848,
         0
       ],
-      "id": "281e7e01-bee3-4f87-8dad-19c562b37e3d",
+      "id": "0ef2470e-09d5-4a37-acc6-d4f802042b1f",
       "name": "Guardrails"
     },
     {
@@ -152,10 +152,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        1168,
-        128
+        1184,
+        144
       ],
-      "id": "fa048771-5c6f-4df0-b8df-362bcc9bdab3",
+      "id": "b24464e6-46f6-4323-bb4f-e48e9bc82f4c",
       "name": "Ollama Chat Model"
     }
   ],
