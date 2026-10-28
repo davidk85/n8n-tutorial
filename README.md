@@ -30,6 +30,7 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 | 20 | [Dein eigenes Bestellformular](folge-20-bestellformular/) | Einsteiger |
 | 21 | [KI-Newsletter aus RSS-Feeds](folge-21-ki-newsletter/) | Einsteiger |
 | 22 | [Sub-Workflows als Bausteine](folge-22-sub-workflows/) | Einsteiger |
+| 23 | [n8n in Docker sicher updaten](folge-23-update-backup/) | Einsteiger |
 
 ## n8n starten
 
