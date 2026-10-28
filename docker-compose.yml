@@ -3,7 +3,11 @@
 # in n8n erreichbar unter http://qdrant:6333.
 services:
   n8n:
-    image: docker.n8n.io/n8nio/n8n:${N8N_VERSION:-2.44.7}
+    # Folgen 0 bis 23 sind mit n8n 2.44.7 aufgenommen. Wer genau diesen Stand will, nimmt die
+    # auskommentierte Zeile. Zurück auf eine ältere Version geht nur mit einem Backup von vorher
+    # (Folge 23), eine schon aktualisierte Datenbank läuft nicht mit einer älteren Version.
+    # image: docker.n8n.io/n8nio/n8n:2.44.7
+    image: docker.n8n.io/n8nio/n8n:${N8N_VERSION:-2.45.5}
     restart: unless-stopped
     ports:
       - "5678:5678"

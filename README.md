@@ -40,8 +40,9 @@ Du brauchst [Docker Desktop](https://www.docker.com/products/docker-desktop/). D
 docker compose up -d
 ```
 
-Danach http://localhost:5678 öffnen und beim ersten Start ein Konto anlegen. Die Videos nutzen
-n8n 2.44.7. Eine andere Version stellst du in `docker-compose.yml` ein.
+Danach http://localhost:5678 öffnen und beim ersten Start ein Konto anlegen. Die Folgen 0 bis 23 sind mit
+n8n 2.44.7 aufgenommen, neuere mit n8n 2.45.5. Eine andere Version stellst du in `docker-compose.yml` ein,
+wie ein Update sicher klappt, zeigt Folge 23.
 
 Das startet n8n, Qdrant (Vektordatenbank ab Folge 6) und Mailpit (Test-Postfach ab Folge 11, http://localhost:8025). Nur n8n: `docker compose up -d n8n`.
 
