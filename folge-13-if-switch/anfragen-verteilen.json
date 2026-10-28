@@ -1,0 +1,259 @@
+{
+  "name": "Anfragen verteilen",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        160
+      ],
+      "id": "8ad0266f-e1ac-40e5-a5b0-5352b86e0749",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "5JYfX0w94KT3tfWa",
+          "mode": "list",
+          "cachedResultName": "Kontaktanfragen",
+          "cachedResultUrl": "/projects/tLvaZYVj8uiOkpmj/datatables/5JYfX0w94KT3tfWa"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        160
+      ],
+      "id": "1f1e6f21-1dd3-486b-b983-20d5b5d9a99b",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "05356fc4-e4bb-4aa8-a796-eee5b1d8e2dd",
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        448,
+        160
+      ],
+      "id": "81922a3e-83e7-4851-b57d-de985bb899f0",
+      "name": "E-Mail vorhanden?"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.thema }}",
+                    "rightValue": "Reklamation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e2b13fad-c67a-496c-a7dd-636b522ee110"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Support"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "26490397-d36c-42d7-913d-71bdcc352de3",
+                    "leftValue": "={{ $json.thema }}",
+                    "rightValue": "Großhandel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Vertrieb"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.5,
+      "position": [
+        672,
+        144
+      ],
+      "id": "b33a320d-764f-4ecf-9705-5a49bccbd1e0",
+      "name": "Nach Thema"
+    },
+    {
+      "parameters": {
+        "fromEmail": "anfragen@morgenrot.example",
+        "toEmail": "support@morgenrot.example",
+        "subject": "=Neue Anfrage: {{ $json.thema }}",
+        "emailFormat": "text",
+        "text": "=Von {{ $json.name }}, {{ $json.email }}: {{ $json.anliegen }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        896,
+        -32
+      ],
+      "id": "181acf83-f089-4b7c-bc5b-30affc3185b5",
+      "name": "Mail an Support",
+      "webhookId": "2f707990-d642-4ee3-9a61-1c432f01069a"
+    },
+    {
+      "parameters": {
+        "fromEmail": "anfragen@morgenrot.example",
+        "toEmail": "vertrieb@morgenrot.example",
+        "subject": "=Neue Anfrage: {{ $json.thema }}",
+        "emailFormat": "text",
+        "text": "=Von {{ $json.name }}, {{ $json.email }}: {{ $json.anliegen }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        896,
+        160
+      ],
+      "id": "bab105a2-9489-4814-bd3c-3bcc4e76b74a",
+      "name": "Mail an Vertrieb",
+      "webhookId": "2f707990-d642-4ee3-9a61-1c432f01069a"
+    },
+    {
+      "parameters": {
+        "fromEmail": "anfragen@morgenrot.example",
+        "toEmail": "team@morgenrot.example",
+        "subject": "=Neue Anfrage: {{ $json.thema }}",
+        "emailFormat": "text",
+        "text": "=Von {{ $json.name }}, {{ $json.email }}: {{ $json.anliegen }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        896,
+        352
+      ],
+      "id": "e23c25f7-f070-40f0-b7f9-8e4c56e9899a",
+      "name": "Mail an Team",
+      "webhookId": "2f707990-d642-4ee3-9a61-1c432f01069a"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "E-Mail vorhanden?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-Mail vorhanden?": {
+      "main": [
+        [
+          {
+            "node": "Nach Thema",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nach Thema": {
+      "main": [
+        [
+          {
+            "node": "Mail an Support",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mail an Vertrieb",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mail an Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}

@@ -20,6 +20,7 @@ Beispieldateien und alle Befehle aus den Videos zum Kopieren. Jede Folge hat ein
 | 10 | [Der KI-Chatbot auf deiner Webseite](folge-10-chat-webseite/) | Einsteiger |
 | 11 | [Jeden Morgen ein Tagesbericht per Mail](folge-11-tagesbericht/) | Einsteiger |
 | 12 | [KI-Workflows und die DSGVO](folge-12-dsgvo/) | Einsteiger |
+| 13 | [IF und Switch: Anfragen verteilen](folge-13-if-switch/) | Einsteiger |
 
 ## n8n starten
 
